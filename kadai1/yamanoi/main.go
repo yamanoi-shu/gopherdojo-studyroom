@@ -7,6 +7,6 @@ import (
 
 func main() {
 	ic := image_converter.NewImageConverter()
-	err := ic.ConvertJPGToPNG("/Users/yamanoishu/ghq/github.com/yamanoi-shu/image_test")
+	err := ic.ConvertImageExt("/Users/yamanoishu/ghq/github.com/yamanoi-shu/image_test", ".jpg", ".png")
 	fmt.Println(err)
 }
