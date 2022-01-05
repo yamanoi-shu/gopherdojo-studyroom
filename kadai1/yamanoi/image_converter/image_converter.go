@@ -21,6 +21,8 @@ var extMap = map[string]string{
 }
 
 func NewImageConverter(srcExt string, destExt string) (ic *ImageConverter, err error) {
+
+	//指定された拡張子が非対応かチェックする
 	if _, ok := extMap[srcExt]; !ok {
 		err = fmt.Errorf("Extension (%s) does not support", srcExt)
 		return
@@ -42,27 +44,32 @@ func (ic *ImageConverter) ConvertImageExt(rootPath string) error {
 
 		fmt.Printf("target path: %s\n", path)
 
+		//ターゲットのファイルの拡張子
 		fileExt := filepath.Ext(fi.Name())
 
 		if !fi.IsDir() && extMap[fileExt[1:]] == ic.srcExt {
 
+			//変換前の画像ファイルを開く
 			file, err := os.Open(path)
 			if err != nil {
 				return err
 			}
 			defer file.Close()
 
+			//変換前の画像をデコードする
 			img, _, err := image.Decode(file)
 			if err != nil {
 				return err
 			}
 
+			//変換後の画像ファイルを開く
 			newFile, err := os.Create(path[:len(path)-len(filepath.Ext(path))] + "." + ic.destExt)
 			if err != nil {
 				return err
 			}
 			defer newFile.Close()
 
+			//変換後の画像ファイルへエンコードする
 			switch ic.destExt {
 			case "png":
 				err = png.Encode(newFile, img)
