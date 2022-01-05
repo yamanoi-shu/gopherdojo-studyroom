@@ -1,12 +1,27 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"kadai1/image_converter"
+	"log"
 )
 
+var srcExt = flag.String("src", "", "src extension")
+var destExt = flag.String("dest", "", "dest extension")
+
 func main() {
+
+	flag.Parse()
+	args := flag.Args()
+
+	if len(args) != 1 || *srcExt == "" || *destExt == "" {
+		log.Fatal("Usage: go run main.go <path> -src <src extension> -dest <dest extension>")
+	}
+
+	fmt.Println(args)
+
 	ic := image_converter.NewImageConverter()
-	err := ic.ConvertImageExt("/Users/yamanoishu/ghq/github.com/yamanoi-shu/image_test", ".jpg", ".png")
+	err := ic.ConvertImageExt(args[0], *srcExt, *destExt)
 	fmt.Println(err)
 }
