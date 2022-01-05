@@ -40,6 +40,8 @@ func (ic *ImageConverter) ConvertImageExt(rootPath string) error {
 
 	err := filepath.Walk(rootPath, func(path string, fi os.FileInfo, err error) error {
 
+		fmt.Printf("target path: %s\n", path)
+
 		fileExt := filepath.Ext(fi.Name())
 
 		if !fi.IsDir() && extMap[fileExt[1:]] == ic.srcExt {
