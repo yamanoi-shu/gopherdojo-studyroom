@@ -16,7 +16,7 @@ func main() {
 	args := flag.Args()
 
 	if len(args) != 1 || *srcExt == "" || *destExt == "" {
-		log.Fatal("Usage: go run main.go <path> -src <src extension> -dest <dest extension>")
+		log.Fatal("Usage: go run main.go -src <src extension> -dest <dest extension> <root path>")
 	}
 
 	fmt.Println(args)
