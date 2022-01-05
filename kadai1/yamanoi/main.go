@@ -21,7 +21,12 @@ func main() {
 
 	fmt.Println(args)
 
-	ic := image_converter.NewImageConverter()
-	err := ic.ConvertImageExt(args[0], *srcExt, *destExt)
-	fmt.Println(err)
+	ic, err := image_converter.NewImageConverter(*srcExt, *destExt)
+	if err != nil {
+		log.Fatal(err)
+	}
+	err = ic.ConvertImageExt(args[0])
+	if err != nil {
+		log.Fatal(err)
+	}
 }
